@@ -99,7 +99,7 @@ app.get('/api/v1/users/:userId', async (req, res) => {
 
 /**
  * @swagger
- * /api/v1/users/{userId}:
+ * /api/v1/users:
  *   patch:
  *     summary: Update a specific user
  *     parameters:
@@ -123,8 +123,8 @@ app.get('/api/v1/users/:userId', async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/User'
  */
-app.patch('/api/v1/users/:userId', async (req, res) => {
-    let user = await User.findById(req.params.userId);
+app.patch('/api/v1/users', async (req, res) => {
+    let user = await User.findById(req.user._id);
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
@@ -135,7 +135,7 @@ app.patch('/api/v1/users/:userId', async (req, res) => {
 
 /**
  * @swagger
- * /api/v1/users/{userId}:
+ * /api/v1/users:
  *   delete:
  *     summary: Delete a specific user
  *     parameters:
@@ -154,7 +154,7 @@ app.patch('/api/v1/users/:userId', async (req, res) => {
  *               $ref: '#/components/schemas/User'
  */
 app.delete('/api/v1/users/:id', async (req, res) => {
-    const user = await User.deleteOne({ _id: req.params.userId });
+    const user = await User.deleteOne({ _id: req.user._id });
     res.send(user);
 });
 
