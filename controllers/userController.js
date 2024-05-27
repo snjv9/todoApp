@@ -1,4 +1,6 @@
 const User = require('../models/userModel')
+const mongoose = require('mongoose')
+const AppError = require('../utils/appError')
 
 exports.createUser = async (req, res, next) => {
     try {
@@ -39,6 +41,9 @@ exports.getAllUser = async (req, res, next) => {
 exports.getUserById = async (req, res, next) => {
     try {
         const userId = req.params.userId
+        if (!userId || !mongoose.isValidObjectId(userId)) {
+            throw new AppError('Please User Id not found, Please Login again', 404)
+        }
         const user = await User.findById(userId);
 
         res.status(200).json({
@@ -48,14 +53,19 @@ exports.getUserById = async (req, res, next) => {
     } catch (err) {
         res.status(500).json({
             status: 'Error',
-            message: "Error Reading user"
+            message: err.message || "Error Reading user"
         })
     }
 }
 
 exports.updateUser = async (req, res, next) => {
     try {
-        let user = await User.findById(req.params.userId);
+        const userId = req.user._id
+        if (!userId || !mongoose.isValidObjectId(userId)) {
+            throw new AppError('Please User Id not found, Please Login again', 404)
+        }
+
+        let user = await User.findById(userId);
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
         user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
@@ -74,6 +84,11 @@ exports.updateUser = async (req, res, next) => {
 }
 exports.deleteUser = async (req, res, next) => {
     try {
+        const userId = req.user._id
+        if (!userId || !mongoose.isValidObjectId(userId)) {
+            throw new AppError('Please User Id not found, Please Login again', 404)
+        }
+
         let user = await User.deleteOne({ _id: req.params.userId });
         res.status(204).json({
             status: "success",

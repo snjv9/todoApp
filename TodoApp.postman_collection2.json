@@ -50,11 +50,21 @@
 		{
 			"name": "Update User",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTM2NDUyMTk5MWIwZTRmOGQ4NWQ0MyIsImlhdCI6MTcxNjgwNDU4OX0.RzNjUxHLJSuSLuTzdr9_OLF3t1GOtjZUE8bmMB7qqj4",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"Test User 1\"\n}",
+					"raw": "{\n    \"phone\":\"0987654321\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -62,7 +72,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8001/api/v1/users/665364521991b0e4f8d85d43",
+					"raw": "localhost:8001/api/v1/users",
 					"host": [
 						"localhost"
 					],
@@ -70,8 +80,7 @@
 					"path": [
 						"api",
 						"v1",
-						"users",
-						"665364521991b0e4f8d85d43"
+						"users"
 					]
 				}
 			},
@@ -80,10 +89,20 @@
 		{
 			"name": "Delete User",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTM2NDUyMTk5MWIwZTRmOGQ4NWQ0MyIsImlhdCI6MTcxNjgwNDU4OX0.RzNjUxHLJSuSLuTzdr9_OLF3t1GOtjZUE8bmMB7qqj4",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8001/api/v1/users/665364521991b0e4f8d85d43",
+					"raw": "localhost:8001/api/v1/users",
 					"host": [
 						"localhost"
 					],
@@ -91,8 +110,7 @@
 					"path": [
 						"api",
 						"v1",
-						"users",
-						"665364521991b0e4f8d85d43"
+						"users"
 					]
 				}
 			},
